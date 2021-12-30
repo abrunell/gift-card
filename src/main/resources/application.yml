@@ -1,0 +1,27 @@
+spring:
+  web:
+    resources:
+      static-locations:
+        - "file:src/main/resources/static/"
+        - "classpath:/static/"
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+  datasource:
+    url: jdbc:postgresql://localhost:5432/giftCard
+    username: postgres
+    password: Pg.7410
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+  sql:
+    init:
+      mode: always
+

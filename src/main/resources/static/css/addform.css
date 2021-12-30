@@ -1,0 +1,65 @@
+/* Style the container */
+.container {
+    border-radius: 10px;
+    background-color: #f2f2f2;
+    padding: 5px;
+    padding-left: 20px;
+    padding-bottom: 40px;
+}
+
+/* Style inputs, select elements and textareas */
+input, select, textarea{
+    width: 300px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    resize: vertical;
+}
+/* Style the submit button */
+
+input[type=submit] {
+    width: 300px;
+    background-color: #04AA6D;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: left;
+}
+/* Style the label to display next to the inputs */
+
+label {
+    padding: 12px 12px 12px 0;
+    display: inline-block;
+    font-family: Verdana;
+}
+
+/* Clear floats after the columns */
+.mainForm:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Success message when new card is added without error */
+.success {
+    font-family:Verdana;
+    font-weight:bold;
+    color:green;
+}
+
+/* Error message, such as when adding a card using an existing card number */
+.error-message {
+    font-family:Verdana;
+    font-weight:bold;
+    color: red;
+}
+
+/* Hibernate Validator field errors. */
+.error {
+    font-family:Verdana;
+    font-weight:bold;
+    color: red;
+}
