@@ -28,7 +28,7 @@ public class DataInitializer implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
 
         // Initial gift cards:
         GiftCard giftCard1 = new GiftCard();
@@ -60,6 +60,6 @@ public class DataInitializer implements CommandLineRunner {
         customerService.addCustomer(customer1);
 
         // Initial Registrations:
-        giftCardService.updatePhoneNumber(Long.valueOf(1234), "1234567890");
+        giftCardService.updatePhoneNumber(1234L, "1234567890");
     }
 }

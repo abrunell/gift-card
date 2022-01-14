@@ -1,10 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="/css/addform.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/addform.css">
     <title>Register Gift Card</title>
 </head>
 
@@ -19,7 +19,7 @@
         <div class="error-message">Error: ${errorMessage}</div>
     </c:if>
 
-    <form action="/registration/registerCard" method="post">
+    <form action="${pageContext.request.contextPath}/registration/registerCard" method="post">
         <label for="cnum">Card Number:</label><br>
         <input type="number" id="cnum" name="cardNumber" required><br>
         <label for="pnum">10-digit Phone:</label><br>

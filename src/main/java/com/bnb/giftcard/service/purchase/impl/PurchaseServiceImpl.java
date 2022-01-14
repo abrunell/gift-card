@@ -34,7 +34,7 @@ public class PurchaseServiceImpl implements PurchaseService {
         purchase.setDateTime(LocalDateTime.now());
         GiftCard giftCard = giftCardService.findByCardNumber(purchase.getCardNumber());
         if (giftCard == null) {
-            throw new IllegalFieldValuesException("Card Not Found. No puchase has been recorded.");
+            throw new IllegalFieldValuesException("Card Not Found. No purchase has been recorded.");
         }
 
         giftCard.associatePurchaseWithGiftCard(purchase);
@@ -42,10 +42,5 @@ public class PurchaseServiceImpl implements PurchaseService {
         // If hibernate's "cascade" is set, this will also save the Purchase.
         giftCardService.updateGiftCard(giftCard);
         return purchase;
-    }
-
-    @Override
-    public Purchase removePurchase(Purchase purchase) {
-        return null;
     }
 }

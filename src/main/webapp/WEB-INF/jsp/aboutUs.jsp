@@ -1,7 +1,7 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="/css/aboutUs.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/aboutUs.css">
     <title>About Austin's eGift Card</title>
 </head>
 <body>
@@ -15,7 +15,7 @@
     </div>
 
     <div class="card">
-        <img src="/images/austin.jpg" alt="Austin" style="width:100%">
+        <img src="${pageContext.request.contextPath}/images/austin.jpg" alt="Austin" style="width:100%">
         <div class="container">
             <h2>Austin Brunell</h2>
             <p class="title">Software Developer</p>

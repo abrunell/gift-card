@@ -1,16 +1,14 @@
 .main {
     background-color: #d5d5d5;
-    padding: 10px;
-    padding-bottom: 40px;
+    padding: 10px 10px 40px;
 }
 
 p {
-    padding: 20px;
-    padding-left: 10px;
+    padding: 20px 20px 20px 10px;
     font-size: 28px;
-    font-family: helvetica;
+    font-family: helvetica, sans-serif;
     font-weight:bold;
-    margin: 0px;
+    margin: 0;
 }
 
 input[type=submit] {

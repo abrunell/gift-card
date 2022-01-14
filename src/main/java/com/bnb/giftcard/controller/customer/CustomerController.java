@@ -1,4 +1,4 @@
-package com.bnb.giftcard.controller.Customer;
+package com.bnb.giftcard.controller.customer;
 
 import com.bnb.giftcard.exception.IllegalFieldValuesException;
 import com.bnb.giftcard.model.Customer;

@@ -7,5 +7,4 @@ import java.util.Collection;
 public interface PurchaseService {
     Collection<Purchase> getPurchases();
     Purchase addPurchase(Purchase purchase);
-    Purchase removePurchase(Purchase purchase);
 }

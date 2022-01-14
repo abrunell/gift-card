@@ -1,10 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="/css/addform.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/addform.css">
     <title>Add Customer</title>
 </head>
 

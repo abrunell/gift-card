@@ -69,7 +69,7 @@ public class GiftCard {
     }
 
     public void setRemainingBalance(BigDecimal remainingBalance) {
-        if (remainingBalance.compareTo(new BigDecimal("00.00")) == -1) {
+        if (remainingBalance.compareTo(new BigDecimal("00.00")) < 0) {
             throw new IllegalFieldValuesException(
                     "Cannot process purchase: The selected gift card does not have a high enough balance for this purchase");
         }

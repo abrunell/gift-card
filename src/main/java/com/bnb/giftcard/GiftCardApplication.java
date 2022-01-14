@@ -15,3 +15,4 @@ public class GiftCardApplication {
 //TODO: Replace default WhiteLabelErrorPage.
 //TODO: Use a lambda somewhere (total gift card liability?)
 //TODO: Return some JSON restfully somewhere.
+//TODO: Do I need the "request.pageContext" when pointing to controller urls?

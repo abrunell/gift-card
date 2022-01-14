@@ -48,10 +48,7 @@ public class GiftCardServiceImpl implements GiftCardService {
     }
 
     private boolean hasUniqueCardNumber(GiftCard giftCard) {
-        if (giftCardRepository.findBycardNumber(giftCard.getCardNumber()) == null) {
-            return true;
-        }
-        return false;
+        return giftCardRepository.findBycardNumber(giftCard.getCardNumber()) == null;
     }
 
     public GiftCard updatePhoneNumber(Long cardNumber, String phoneNumber) {
