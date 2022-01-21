@@ -9,9 +9,15 @@ spring:
       prefix: /WEB-INF/jsp/
       suffix: .jsp
   datasource:
-    url: jdbc:postgresql://localhost:5432/giftCard
-    username: postgres
-    password: Pg.7410
+    url: jdbc:h2:mem:mydb
+    username: sa
+    password: sa
+    driverClassName: org.h2.Driver
+
+#    url: jdbc:postgresql://localhost:5432/giftCard
+#    username: postgres
+#    password:
+
   jpa:
     open-in-view: false
     hibernate:
@@ -19,7 +25,7 @@ spring:
     show-sql: true
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+        dialect: org.hibernate.dialect.H2Dialect
         format_sql: true
   sql:
     init:

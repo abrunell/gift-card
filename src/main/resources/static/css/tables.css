@@ -1,29 +1,31 @@
-body {
-    font-family: Verdana, sans-serif;
+/* Table container div */
+.table-div {
+    width: 60%;
+    margin: auto;
 }
 
-.table-background {
-    background-color: #dcdcdc;
-    padding: 10px;
+/* Override DataTable's default "search" background color */
+.dataTables_filter input {
+    background-color: white !important;
+}
+
+/* Override DataTable's default "Show [x] entries" background color */
+.dataTables_length select {
+    background-color: white !important;
 }
 
 .styled-table {
-    border-collapse: collapse;
-    margin: 5px 0;
     font-size: 0.9em;
     font-family: sans-serif;
-    min-width: 400px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
+
 .styled-table thead tr {
-    background-color: #04AA6D;
+    background-color: #47a2ff;
     color: #ffffff;
     text-align: left;
 }
-.styled-table th,
-.styled-table td {
-    padding: 12px 15px;
-}
+
 .styled-table tbody tr {
     border-bottom: thin solid #dddddd;
     background-color: #f3f3f3;
@@ -34,9 +36,9 @@ body {
 }
 
 .styled-table tbody tr:last-of-type {
-    border-bottom: 2px solid #009879;
+    border-bottom: 2px solid #47a2ff;
 }
 .styled-table tbody {
     font-weight: bold;
-    color: #009879;
+    color: #07313d;
 }

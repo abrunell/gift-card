@@ -12,6 +12,21 @@ public class GiftCardApplication {
 
 }
 
+//TODO: Tests
+//TODO: Change the photo on my "card"
+//TODO: Change photo on Github
+//TODO: Write Github readme
+//TODO: Commit and push.
+
+//TODO: Purchases and negative values.
+//TODO: Transactions should be run from a button on the GiftCard List.
+//TODO: Cleanup custom exceptions.
+//TODO: Have exception error messages show relevant field data.
+//TODO: Make "features" list on home page into links
+//TODO: Make Purchases into "gcTransactions"
+//TODO: Add optional email field on customer
+//TODO: What happens to purchases of deactivated cards?
+//TODO: Logging of user actions?
 //TODO: Replace default WhiteLabelErrorPage.
 //TODO: Use a lambda somewhere (total gift card liability?)
 //TODO: Return some JSON restfully somewhere.

@@ -1,28 +1,28 @@
-.main {
-    background-color: #d5d5d5;
-    padding: 10px 10px 40px;
-}
-
-p {
-    padding: 20px 20px 20px 10px;
-    font-size: 28px;
-    font-family: helvetica, sans-serif;
-    font-weight:bold;
-    margin: 0;
-}
-
-input[type=submit] {
-    background-color: #04AA6D;
+/* Home screen website name/description */
+.homeName {
+    padding: 50px;
+    text-align: center;
+    background-color: #474e5d;
     color: white;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    float: left;
-    width: 300px;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-input:hover {
-    background-color: #ffffff;
-    color: black;
+/* Features label */
+.label {
+    text-align: center;
+    font-weight: bold;
+}
+
+.features {
+    padding: 30px;
+    background-color: #dcdcdc;
+}
+
+.feature {
+    margin: 10px auto auto;
+    padding: 10px;
+    width: 400px;
+    background-color: #47a2ff;
+    border-radius: 5px;
+    color: white;
 }

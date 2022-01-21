@@ -1,0 +1,99 @@
+/* "Add a new ___" label */
+p {
+    text-align: center;
+    font-size: 20px;
+    font-family: helvetica, sans-serif;
+    font-weight:bold;
+}
+
+/* Container for input forms and labels */
+.add {
+    margin: 0 auto 0 auto;
+    width: max-content;
+}
+
+/* Input fields label */
+label {
+    margin: 12px 12px 0 3px;
+    display: inline-block;
+    font-family: Verdana, sans-serif;
+}
+
+/* Input fields/buttons */
+input {
+    width: 200px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    resize: vertical;
+    margin-block-end: 0 !important;
+}
+
+.add-form-div {
+    position: relative;
+}
+
+.add-form-div-parent {
+    display: flex;
+}
+
+/* Submit button */
+input[type=submit] {
+    display: inline-block;
+    background-color: #04AA6D;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin: 10px 0 0 0;
+}
+
+.multi-field-submit {
+    margin: 22px 0 0 5px
+}
+
+#deactivateButton {
+    color: white;
+    background-color: darkred;
+    width: max-content;
+    text-align: center;
+    margin: 15px 0 0 0;
+}
+
+.registerButton {
+    color: white;
+    background-color: dimgrey;
+    width: max-content;
+    text-align: center;
+    display: inline-block;
+    margin: 10px 0;
+    cursor: pointer;
+    padding: 12px;
+    border-radius: 4px;
+    box-sizing: border-box;
+    resize: vertical;
+}
+
+/* "Success" text */
+.success {
+    font-family: Verdana, sans-serif;
+    font-weight:bold;
+    color:white;
+    background-color: #04AA6D;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin: auto;
+    width: max-content;
+}
+
+/* "Error" text */
+.error, .error-message {
+    font-family: Verdana, sans-serif;
+    font-weight:bold;
+    color:white;
+    background-color: red;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin: auto;
+    width: max-content;
+}

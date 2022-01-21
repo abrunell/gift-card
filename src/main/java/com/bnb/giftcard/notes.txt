@@ -1,0 +1,62 @@
+User-entered Field Validation.
+
+    GiftCard:
+        Starting balance:
+            --Between 0.00 and 50.00
+                This gets redundantly handled by HTML requirement and Validator.
+            --No extra decimals.
+                Handled redundantly by HTML requirement and setter logic.
+            --No text or other characters
+                Handled redundantly by HTML requirements, and an exception throw.
+            --Not null.
+                Handled by Validator. Could also be handled by HTML requirement, but I like the specificity of the
+                    Validator message.
+
+
+    Card transactions:
+        Card Number:
+            --Must not be null.
+                Handled by HTML requirement.
+                > Need to implement backend solution.
+            --Must exist in the database.
+                Handled by an IllegalFieldValuesException.
+
+        Transaction amount:
+            --Must not be null.
+                Handled by HTML requirement.
+                > Need to implement backend solution.
+            --No extra decimals.
+                Handled redundantly by HTML requirement and setter logic.
+            --Must be numeric only.
+                Handled by HTML requirement.
+                > Need to implement a backend solution.
+            --Cannot exceed the remaining balance on a card.
+                Handled by setter logic.
+            --Negative transactions can't take care beyond initial balance.
+                !!!!! Need to implement this !!!!!
+
+
+    Customer:
+        Names:
+            --(Names don't have any validation. Pretty much anything goes, as the names aren't required, or used for
+                any logic).
+        Phone:
+            --Must be 10-digits.
+                Handled by an IllegalFieldValuesException.
+            --Must not be already in-use.
+                Handled by an IllegalFieldValuesException.
+            --Must be numeric only.
+                Somehow this is being handled by Validator??????? I do not understand why Validator is flagging this,
+                    given how I have it set up. Need to come back and figure this out.
+
+    Registration:
+        Phone number:
+            --Must exist in the Customer database.
+                Handled by an exception.
+
+        General:
+            --Card can't already be registered (at the moment, though this is planned to change.)
+                Handled by IllegalFieldValueException. (Not the right exception for this really, but it's just temporary)
+
+
+

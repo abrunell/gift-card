@@ -11,11 +11,15 @@ public class Customer {
     @Id
     @GeneratedValue
     private int id;
+
     @Column(unique = true)
-    @NotBlank
+    @NotBlank(message="Please enter a phone number")
     private String phoneNumber;
+
     private String firstName;
+
     private String lastName;
+
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<GiftCard> giftCards;
 
@@ -46,6 +50,12 @@ public class Customer {
     public void setPhoneNumber(String phoneNumber) {
         phoneNumber = phoneNumber.replaceAll("[^0-9]","");
         this.phoneNumber = phoneNumber;
+    }
+
+    //Utility method to make sure that both sides of the bi-directional relationship are updated.
+    public void associateGiftCardWithCustomer(GiftCard giftCard) {
+        giftCards.add(giftCard);
+        giftCard.setCustomer(this);
     }
 
     @Override

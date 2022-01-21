@@ -26,7 +26,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer getCustomer(String phoneNumber) {
-        return customerRepository.findByphoneNumber(phoneNumber);
+        return customerRepository.findByPhoneNumber(phoneNumber);
     }
 
     @Override
@@ -34,7 +34,15 @@ public class CustomerServiceImpl implements CustomerService {
         if (customer.getPhoneNumber().length() != 10) {
             throw new IllegalFieldValuesException("Phone Number must contain exactly 10 digits.");
         }
+        if (customerRepository.findByPhoneNumber(customer.getPhoneNumber()) != null) {
+            throw new IllegalFieldValuesException("The entered phone number is already in use.");
+        }
         customerRepository.save(customer);
         return customer;
+    }
+
+    @Override
+    public Customer updateCustomer(Customer customer) {
+        return customerRepository.save(customer);
     }
 }

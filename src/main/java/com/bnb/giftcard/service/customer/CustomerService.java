@@ -8,5 +8,6 @@ public interface CustomerService {
     Collection<Customer> getCustomers();
     Customer getCustomer(String phoneNumber);
     Customer addCustomer(Customer customer);
+    Customer updateCustomer(Customer customer);
 
 }

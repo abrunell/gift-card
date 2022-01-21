@@ -1,4 +1,4 @@
-package com.bnb.giftcard.controller.home;
+package com.bnb.giftcard.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/")
 public class HomeController {
 
-    @GetMapping("/")
+    @GetMapping("")
     public String welcome(Model model){
         return "home";
     }

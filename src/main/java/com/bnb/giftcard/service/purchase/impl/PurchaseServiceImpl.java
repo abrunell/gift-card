@@ -9,6 +9,7 @@ import com.bnb.giftcard.service.purchase.PurchaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Collection;
 
@@ -30,16 +31,17 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
     @Override
-    public Purchase addPurchase(Purchase purchase) {
-        purchase.setDateTime(LocalDateTime.now());
-        GiftCard giftCard = giftCardService.findByCardNumber(purchase.getCardNumber());
+    public Purchase addPurchase(BigDecimal amount, long cardNumber) {
+        Purchase purchase = new Purchase();
+        purchase.setAmount(amount);
+        purchase.setPurchaseDate(LocalDateTime.now());
+        GiftCard giftCard = giftCardService.findByCardNumber(cardNumber);
         if (giftCard == null) {
             throw new IllegalFieldValuesException("Card Not Found. No purchase has been recorded.");
         }
-
         giftCard.associatePurchaseWithGiftCard(purchase);
         giftCard.setRemainingBalance(giftCard.getRemainingBalance().subtract(purchase.getAmount()));
-        // If hibernate's "cascade" is set, this will also save the Purchase.
+        // If hibernate's "cascade" is set, this will also save the Purchase:
         giftCardService.updateGiftCard(giftCard);
         return purchase;
     }

@@ -3,8 +3,11 @@ package com.bnb.giftcard.model;
 import com.bnb.giftcard.exception.IllegalFieldValuesException;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -15,20 +18,25 @@ public class GiftCard {
     @Id
     @GeneratedValue
     private Long id;
+
     @Column(unique = true)
-    @NotNull
-    @Min(1)
     private long cardNumber;
-    private LocalDateTime activationTime;
-    @DecimalMax("50.00")
-    @DecimalMin("0.00")
-    @NotNull
+
+    @DecimalMax(value="50.00", message="Please enter a value between $0.00 and $50.00")
+    @DecimalMin(value="0.00", message="Please enter a value between $0.00 and $50.00")
+    @NotNull (message = "Please enter a value between $0.00 and $50.00")
     private BigDecimal initialBalance;
+
     private BigDecimal remainingBalance;
-    private String phoneNumber;
+
+    private LocalDateTime activationTime;
+
+    private boolean active;
+
     //If we don't cascade the purchases, we get an error when we try to save a GiftCard.
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Purchase> purchases;
+
     @ManyToOne
     private Customer customer;
 
@@ -40,6 +48,23 @@ public class GiftCard {
         this.cardNumber = cardNumber;
     }
 
+    public BigDecimal getInitialBalance() {
+        return initialBalance;
+    }
+
+    public void setInitialBalance(BigDecimal initialBalance) {
+        if (initialBalance != null) {
+            //Round off any extra decimals (>2):
+            this.initialBalance = initialBalance.setScale(2, RoundingMode.DOWN);
+        } else {
+            this.initialBalance = null;
+        }
+    }
+
+    public BigDecimal getRemainingBalance() {
+        return remainingBalance;
+    }
+
     public LocalDateTime getActivationTime() {
         return activationTime;
     }
@@ -48,24 +73,12 @@ public class GiftCard {
         this.activationTime = activationTime;
     }
 
-    public BigDecimal getInitialBalance() {
-        return initialBalance;
+    public boolean isActive() {
+        return active;
     }
 
-    public void setInitialBalance(BigDecimal initialBalance) {
-        this.initialBalance = initialBalance;
-    }
-
-    public BigDecimal getRemainingBalance() {
-        return remainingBalance;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public void setRemainingBalance(BigDecimal remainingBalance) {
@@ -74,6 +87,14 @@ public class GiftCard {
                     "Cannot process purchase: The selected gift card does not have a high enough balance for this purchase");
         }
         this.remainingBalance = remainingBalance;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     public Set<Purchase> getPurchases() {
@@ -85,10 +106,11 @@ public class GiftCard {
         return "GiftCard{" +
                 "id=" + id +
                 ", cardNumber=" + cardNumber +
-                ", activationTime=" + activationTime +
                 ", initialBalance=" + initialBalance +
                 ", remainingBalance=" + remainingBalance +
-                ", phoneNumber='" + phoneNumber + '\'' +
+                ", activationTime=" + activationTime +
+                ", active=" + active +
+                ", customer=" + customer +
                 '}';
     }
 

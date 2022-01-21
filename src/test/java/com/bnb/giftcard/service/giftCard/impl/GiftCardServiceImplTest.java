@@ -1,8 +1,9 @@
 package com.bnb.giftcard.service.giftCard.impl;
 
-import com.bnb.giftcard.exception.NumberAlreadyInUseException;
+import com.bnb.giftcard.model.Customer;
 import com.bnb.giftcard.model.GiftCard;
 import com.bnb.giftcard.repository.GiftCardRepository;
+import com.bnb.giftcard.service.customer.CustomerService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -11,7 +12,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -20,6 +22,8 @@ class GiftCardServiceImplTest {
 
     @Mock
     private GiftCardRepository giftCardRepository;
+    @Mock
+    private CustomerService customerService;
     @InjectMocks
     private GiftCardServiceImpl giftCardServiceImpl;
 
@@ -32,11 +36,17 @@ class GiftCardServiceImplTest {
     }
 
     @Test
+    void getActiveGiftCards() {
+        giftCardServiceImpl.getActiveGiftCards();
+
+        verify(giftCardRepository).findByActiveTrue();
+    }
+
+    @Test
     void updateGiftCard() {
         GiftCard giftCard = new GiftCard();
         giftCardServiceImpl.updateGiftCard(giftCard);
 
-        // should call the save() method on the repo.
         verify(giftCardRepository).save(giftCard);
     }
 
@@ -45,13 +55,12 @@ class GiftCardServiceImplTest {
         long cardNumber = 1234567;
         giftCardServiceImpl.findByCardNumber(cardNumber);
 
-        verify(giftCardRepository).findBycardNumber(cardNumber);
+        verify(giftCardRepository).findByCardNumber(cardNumber);
     }
 
     @Test
     void addGiftCardSuccess() {
         GiftCard giftCard = new GiftCard();
-        giftCard.setCardNumber(1234567);
         giftCard.setInitialBalance(new BigDecimal("50.00"));
 
         giftCardServiceImpl.addGiftCard(giftCard);
@@ -64,22 +73,26 @@ class GiftCardServiceImplTest {
         verify(giftCardRepository).save(giftCard);
     }
 
-    @Test
-    void exceptionThrownWhenCardNotUnique() {
-        GiftCard giftCard2 = new GiftCard();
-        giftCard2.setCardNumber(1234567);
-        giftCard2.setInitialBalance(new BigDecimal("50.00"));
-
-        when(giftCardRepository.findBycardNumber(1234567)).thenReturn(new GiftCard());
-
-        NumberAlreadyInUseException exception = assertThrows(NumberAlreadyInUseException.class, () -> {
-            giftCardServiceImpl.addGiftCard(giftCard2);
-        });
-
-        assertEquals("Card number already in use.", exception.getMessage());
-    }
-
     //TODO: finish these tests
+
+    @Test
+    void setCustomerSuccess() {
+        long cardNumber = 112233445566L;
+        String phoneNumber = "1234567890";
+        //Need to add an empty GiftCard list to this? But why isn't that a problem in the real world?
+        Customer customer = new Customer();
+
+        GiftCard giftCard = new GiftCard();
+
+        when(giftCardRepository.findByCardNumber(cardNumber)).thenReturn(giftCard);
+        when(customerService.getCustomer(phoneNumber)).thenReturn(customer);
+
+        giftCardServiceImpl.setCustomer(cardNumber, phoneNumber);
+
+
+        verify(customer).associateGiftCardWithCustomer(giftCard);
+        verify(customerService).updateCustomer(customer);
+    }
 
     @Test
     void updatePhoneNumberSuccess() {
@@ -96,4 +109,6 @@ class GiftCardServiceImplTest {
     void exceptionWhenPhoneNotFound() {
 
     }
+
+    // 8772244430
 }

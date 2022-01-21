@@ -3,6 +3,7 @@ package com.bnb.giftcard.model;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 
 @Entity
@@ -12,18 +13,20 @@ public class Purchase {
     @Id
     @GeneratedValue
     private Long id;
-    private LocalDateTime dateTime;
+
+    private LocalDateTime purchaseDate;
+
     private BigDecimal amount;
-    private long cardNumber;
+
     @ManyToOne
     private GiftCard giftCard;
 
-    public LocalDateTime getDateTime() {
-        return dateTime;
+    public LocalDateTime getPurchaseDate() {
+        return purchaseDate;
     }
 
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
+    public void setPurchaseDate(LocalDateTime dateTime) {
+        this.purchaseDate = dateTime;
     }
 
     public BigDecimal getAmount() {
@@ -31,7 +34,12 @@ public class Purchase {
     }
 
     public void setAmount(BigDecimal amount) {
-        this.amount = amount;
+        if (amount != null) {
+            //Round off any extra decimals (>2):
+            this.amount = amount.setScale(2, RoundingMode.DOWN);
+        } else {
+            this.amount = null;
+        }
     }
 
     public GiftCard getGiftCard() {
@@ -42,21 +50,14 @@ public class Purchase {
         this.giftCard = giftCard;
     }
 
-    public long getCardNumber() {
-        return cardNumber;
-    }
-
-    public void setCardNumber(long cardNumber) {
-        this.cardNumber = cardNumber;
-    }
 
     @Override
     public String toString() {
         return "Purchase{" +
                 "id=" + id +
-                ", dateTime=" + dateTime +
+                ", purchaseDate=" + purchaseDate +
                 ", amount=" + amount +
-                ", cardNumber=" + cardNumber +
+                ", giftCard=" + giftCard +
                 '}';
     }
 }
