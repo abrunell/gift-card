@@ -1,6 +1,6 @@
 -----(A proper ReadMe is coming!)-----
 
-###Austin's eGift Cards makes it easy for you you: 
+### Austin's eGift Cards makes it easy for you you: 
 
 -Create new gift cards <br>
 -Track gift card transactions <br>
@@ -8,7 +8,7 @@
 -See gift card statistics (coming soon)
 
 
-###Built with: 
+### Built with: 
 
 Spring Boot 2  |  Java  |  Hibernate  |  Hibernate Validator  |  Maven  |  JSP  |  HTML  | <br>
 CSS  |  JUnit  |  Mockito  |  PostgreSQL (H2 for the demo)  |  IntelliJ IDEA 
