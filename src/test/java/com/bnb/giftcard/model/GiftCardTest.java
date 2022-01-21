@@ -1,6 +1,7 @@
 package com.bnb.giftcard.model;
 
 import com.bnb.giftcard.exception.IllegalFieldValuesException;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javax.validation.ConstraintViolation;
@@ -17,17 +18,22 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class GiftCardTest {
 
+    GiftCard giftCard;
+
+    @BeforeEach
+    void setup() {
+        giftCard = new GiftCard();
+    }
+
     @Test
     void setInitialBalanceTrimsDecimals() {
-        GiftCard giftCard = new GiftCard();
-        giftCard.setInitialBalance(BigDecimal.valueOf(1.21343858));
+        giftCard.setInitialBalance(BigDecimal.valueOf(1.21643858));
 
-        assert(giftCard.getInitialBalance().equals(BigDecimal.valueOf(1.21)));
+        assertEquals(giftCard.getInitialBalance(), BigDecimal.valueOf(1.21));
     }
 
     @Test
     void setInitialBalanceToNull() {
-        GiftCard giftCard = new GiftCard();
         giftCard.setInitialBalance(null);
 
         assert(giftCard.getInitialBalance() == null);
@@ -35,16 +41,13 @@ class GiftCardTest {
 
     @Test
     void setRemainingBalanceSuccess() {
-        GiftCard giftCard = new GiftCard();
         giftCard.setRemainingBalance(BigDecimal.valueOf(0.00));
 
-        assert(giftCard.getRemainingBalance().equals(BigDecimal.valueOf(0.00)));
+        assertEquals(giftCard.getRemainingBalance(), BigDecimal.valueOf(0.00));
     }
 
     @Test
     void exceptionThrownWhenSettingBalanceBelowZero() {
-        GiftCard giftCard = new GiftCard();
-
         Exception exception = assertThrows(IllegalFieldValuesException.class,
                 () -> giftCard.setRemainingBalance(BigDecimal.valueOf(-0.01)));
 
@@ -56,7 +59,6 @@ class GiftCardTest {
     void associatePurchaseWithGiftCardSuccess() throws NoSuchFieldException, IllegalAccessException {
 
         //We need a GiftCard with a "purchases" set that is empty, but not null:
-        GiftCard giftCard = new GiftCard();
         Field purchasesField = GiftCard.class.getDeclaredField("purchases");
         purchasesField.setAccessible(true);
         Set<Purchase> purchaseSet = new HashSet<>();
@@ -74,7 +76,6 @@ class GiftCardTest {
     @Test
     void validationErrorWhenSettingInitialBalanceAbove50() {
         Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-        GiftCard giftCard = new GiftCard();
         giftCard.setInitialBalance(new BigDecimal("50.01"));
         Set<ConstraintViolation<GiftCard>> violations = validator.validate(giftCard);
 
@@ -84,7 +85,6 @@ class GiftCardTest {
     @Test
     void validatonErrorWhenSettingInitialBalanceBelowZero() {
         Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-        GiftCard giftCard = new GiftCard();
         giftCard.setInitialBalance(new BigDecimal("-1.00"));
         Set<ConstraintViolation<GiftCard>> violations = validator.validate(giftCard);
 
@@ -94,7 +94,6 @@ class GiftCardTest {
     @Test
     void validationErrorWhenInitialValueIsNull() {
         Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-        GiftCard giftCard = new GiftCard();
         Set<ConstraintViolation<GiftCard>> violations = validator.validate(giftCard);
 
         assert(violations.size() > 0);
@@ -102,7 +101,6 @@ class GiftCardTest {
 
     @Test
     void testToString() {
-        GiftCard giftCard = new GiftCard();
         String expected = "GiftCard{id=null, cardNumber=0, initialBalance=null, remainingBalance=null, " +
                 "activationTime=null, active=false, customer=null}";
         assertEquals(expected, giftCard.toString());

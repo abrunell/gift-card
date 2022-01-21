@@ -1,10 +1,10 @@
-package com.bnb.giftcard.dataInitializer;
+package com.bnb.giftcard.dataLoad;
 
 import com.bnb.giftcard.model.Customer;
 import com.bnb.giftcard.model.GiftCard;
-import com.bnb.giftcard.service.customer.CustomerService;
-import com.bnb.giftcard.service.giftCard.GiftCardService;
-import com.bnb.giftcard.service.purchase.PurchaseService;
+import com.bnb.giftcard.service.CustomerService;
+import com.bnb.giftcard.service.GiftCardService;
+import com.bnb.giftcard.service.PurchaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;

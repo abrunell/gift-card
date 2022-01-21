@@ -1,7 +1,7 @@
 package com.bnb.giftcard.controller;
 
 import com.bnb.giftcard.model.GiftCard;
-import com.bnb.giftcard.service.giftCard.GiftCardService;
+import com.bnb.giftcard.service.GiftCardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

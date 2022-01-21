@@ -52,6 +52,14 @@ public class Customer {
         this.phoneNumber = phoneNumber;
     }
 
+    public Set<GiftCard> getGiftCards() {
+        return giftCards;
+    }
+
+    public void setGiftCards(Set<GiftCard> giftCards) {
+        this.giftCards = giftCards;
+    }
+
     //Utility method to make sure that both sides of the bi-directional relationship are updated.
     public void associateGiftCardWithCustomer(GiftCard giftCard) {
         giftCards.add(giftCard);

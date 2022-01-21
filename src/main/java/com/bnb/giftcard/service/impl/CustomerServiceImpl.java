@@ -1,9 +1,9 @@
-package com.bnb.giftcard.service.customer.impl;
+package com.bnb.giftcard.service.impl;
 
 import com.bnb.giftcard.exception.IllegalFieldValuesException;
 import com.bnb.giftcard.model.Customer;
 import com.bnb.giftcard.repository.CustomerRepository;
-import com.bnb.giftcard.service.customer.CustomerService;
+import com.bnb.giftcard.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

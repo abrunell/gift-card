@@ -4,7 +4,7 @@ import com.bnb.giftcard.exception.CardNotFoundException;
 import com.bnb.giftcard.exception.IllegalFieldValuesException;
 import com.bnb.giftcard.exception.PhoneNotFoundException;
 import com.bnb.giftcard.model.GiftCard;
-import com.bnb.giftcard.service.giftCard.GiftCardService;
+import com.bnb.giftcard.service.GiftCardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,7 +45,7 @@ public class RegistrationController {
     @ExceptionHandler(CardNotFoundException.class)
     public RedirectView handleCardNotFoundException(CardNotFoundException exception, RedirectAttributes redirectAttributes, HttpServletRequest req) {
         //TODO: This seems like the wrong way to pass the cardNumber back to the registration page; is there a better way?
-        final RedirectView redirectView = new RedirectView("/registration/registerCard?cardNumber=" + req.getParameter("cardNumber"), true);
+        final RedirectView redirectView = new RedirectView("/registration?cardNumber=" + req.getParameter("cardNumber"), true);
         redirectAttributes.addFlashAttribute("errorMessage", exception.getMessage());
         redirectAttributes.addFlashAttribute("exceptionThrown", true);
         return redirectView;
@@ -54,7 +54,7 @@ public class RegistrationController {
     @ExceptionHandler(PhoneNotFoundException.class)
     public RedirectView handlePhoneNotFoundException(PhoneNotFoundException exception, RedirectAttributes redirectAttributes, HttpServletRequest req) {
         //TODO: This seems like the wrong way to pass the cardNumber back to the registration page; is there a better way?
-        final RedirectView redirectView = new RedirectView("/registration/registerCard?cardNumber=" + req.getParameter("cardNumber"), true);
+        final RedirectView redirectView = new RedirectView("/registration?cardNumber=" + req.getParameter("cardNumber"), true);
         redirectAttributes.addFlashAttribute("errorMessage", exception.getMessage());
         redirectAttributes.addFlashAttribute("exceptionThrown", true);
         return redirectView;
@@ -63,7 +63,7 @@ public class RegistrationController {
     @ExceptionHandler(IllegalFieldValuesException.class)
     public RedirectView handleIllegalFieldValuesException(IllegalFieldValuesException exception, RedirectAttributes redirectAttributes, HttpServletRequest req) {
         //TODO: This seems like the wrong way to pass the cardNumber back to the registration page; is there a better way?
-        final RedirectView redirectView = new RedirectView("/registration/registerCard?cardNumber=" + req.getParameter("cardNumber"), true);
+        final RedirectView redirectView = new RedirectView("/registration?cardNumber=" + req.getParameter("cardNumber"), true);
         redirectAttributes.addFlashAttribute("errorMessage", exception.getMessage());
         redirectAttributes.addFlashAttribute("exceptionThrown", true);
         return redirectView;

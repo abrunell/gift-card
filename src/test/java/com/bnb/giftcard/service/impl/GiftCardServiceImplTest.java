@@ -1,9 +1,11 @@
-package com.bnb.giftcard.service.giftCard.impl;
+package com.bnb.giftcard.service.impl;
 
+import com.bnb.giftcard.exception.CardNotFoundException;
+import com.bnb.giftcard.exception.PhoneNotFoundException;
 import com.bnb.giftcard.model.Customer;
 import com.bnb.giftcard.model.GiftCard;
 import com.bnb.giftcard.repository.GiftCardRepository;
-import com.bnb.giftcard.service.customer.CustomerService;
+import com.bnb.giftcard.service.CustomerService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -11,9 +13,10 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -27,11 +30,13 @@ class GiftCardServiceImplTest {
     @InjectMocks
     private GiftCardServiceImpl giftCardServiceImpl;
 
+    String phoneNumber = "1234567890";
+    long cardNumber = 111222333444L;
+
     @Test
     void getGiftCards() {
         giftCardServiceImpl.getGiftCards();
 
-        // should call the findAll() method on the repo.
         verify(giftCardRepository).findAll();
     }
 
@@ -52,7 +57,6 @@ class GiftCardServiceImplTest {
 
     @Test
     void findByCardNumber() {
-        long cardNumber = 1234567;
         giftCardServiceImpl.findByCardNumber(cardNumber);
 
         verify(giftCardRepository).findByCardNumber(cardNumber);
@@ -77,11 +81,9 @@ class GiftCardServiceImplTest {
 
     @Test
     void setCustomerSuccess() {
-        long cardNumber = 112233445566L;
-        String phoneNumber = "1234567890";
-        //Need to add an empty GiftCard list to this? But why isn't that a problem in the real world?
+        Set<GiftCard> emptySet = new HashSet<>();
         Customer customer = new Customer();
-
+        customer.setGiftCards(emptySet);
         GiftCard giftCard = new GiftCard();
 
         when(giftCardRepository.findByCardNumber(cardNumber)).thenReturn(giftCard);
@@ -89,26 +91,61 @@ class GiftCardServiceImplTest {
 
         giftCardServiceImpl.setCustomer(cardNumber, phoneNumber);
 
-
-        verify(customer).associateGiftCardWithCustomer(giftCard);
+        assert(giftCard.getCustomer().equals(customer));
         verify(customerService).updateCustomer(customer);
     }
 
     @Test
-    void updatePhoneNumberSuccess() {
-        //phone number is set
-        //save method gets called
+    void setCustomerNullCardThrowsException() {
+
+        when(giftCardRepository.findByCardNumber(cardNumber)).thenReturn(null);
+
+        Exception exception = assertThrows(CardNotFoundException.class,
+                () -> giftCardServiceImpl.setCustomer(cardNumber, phoneNumber));
+
+        assertEquals("Card Not Found.", exception.getMessage());
     }
 
     @Test
-    void exceptionWhenNoCardFound() {
-
+    void setCustomerAlreadyRegistered() {
+        // Skipping this test since I'll be adding re-registration logic soon.
     }
 
     @Test
-    void exceptionWhenPhoneNotFound() {
+    void setCustomerNullCustomerThrowsException() {
+        GiftCard giftCard = new GiftCard();
 
+        when(giftCardRepository.findByCardNumber(cardNumber)).thenReturn(giftCard);
+        when(customerService.getCustomer(phoneNumber)).thenReturn(null);
+
+        Exception exception = assertThrows(PhoneNotFoundException.class,
+                () -> giftCardServiceImpl.setCustomer(cardNumber, phoneNumber));
+
+        assertEquals("No customer was found for the entered Phone Number", exception.getMessage());
     }
 
-    // 8772244430
+    @Test
+    void deactivateGiftCardSuccess() {
+        GiftCard giftCard = new GiftCard();
+        giftCard.setActive(true);
+
+        when(giftCardRepository.findByCardNumber(cardNumber)).thenReturn(giftCard);
+
+        giftCardServiceImpl.deactivateGiftCard(cardNumber);
+
+        verify(giftCardRepository).save(giftCard);
+        assert(!giftCard.isActive());
+    }
+
+    @Test
+    void deactivateGiftCardThrowsExceptionWhenCardNotFound() {
+
+        when(giftCardRepository.findByCardNumber(cardNumber)).thenReturn(null);
+
+        Exception exception = assertThrows(CardNotFoundException.class,
+                () -> giftCardServiceImpl.deactivateGiftCard(cardNumber));
+
+        assertEquals("Could not deactivate card. No card was found with the given card number.",
+                exception.getMessage());
+    }
 }

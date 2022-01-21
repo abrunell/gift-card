@@ -1,4 +1,4 @@
-package com.bnb.giftcard.service.purchase;
+package com.bnb.giftcard.service;
 
 import com.bnb.giftcard.model.Purchase;
 

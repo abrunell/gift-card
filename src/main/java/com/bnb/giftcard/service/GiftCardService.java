@@ -1,4 +1,4 @@
-package com.bnb.giftcard.service.giftCard;
+package com.bnb.giftcard.service;
 
 import com.bnb.giftcard.model.GiftCard;
 
